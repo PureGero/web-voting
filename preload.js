@@ -8,3 +8,9 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type])
   }
 })
+
+const { ipcRenderer } = require('electron');
+
+(async () => {
+  console.log(await ipcRenderer.invoke('perform-action', 'Hello'));
+})();

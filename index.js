@@ -1,5 +1,15 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const sql = require('mssql');
+
+const { ipcMain } = require('electron');
+
+ipcMain.handle('perform-action', async (event, text) => {
+  await sql.connect('Server=server;Database=database;User Id=usersname;Password=password;Encrypt=true')
+  const result = await sql.query(`select * from mytable where id = ${value}`);
+  console.dir(result);
+  return result;
+});
 
 function createWindow() {
   const win = new BrowserWindow({

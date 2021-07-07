@@ -31,12 +31,13 @@ jobs:
       - name: Make the Electron app
         run: npm run make
 
+      - name: Prepare artifacts
+        run: |
+          npx mkdir artifact
+          npx mv out/make/**/*.(exe|deb|rpm|zip) artifact/
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.os }}
-          path: |
-            out/make/**/*.exe
-            out/make/**/*.zip
-            out/make/**/*.rpm
-            out/make/**/*.deb
+          path: artifact

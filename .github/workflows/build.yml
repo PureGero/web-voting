@@ -32,7 +32,7 @@ jobs:
         run: npm run make
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2s
         with:
           name: ${{ matrix.os }}
           path: out/make/**/*.(exe|deb|rpm|zip)

@@ -19,11 +19,16 @@ app.get('/api', (req, res) => {
 
 app.use(express.static(path.join('web-app', 'dist')));
 
+let server;
 const donePromise = new Promise(resolve => {
-  app.listen(PORT, () => {
+  server = app.listen(PORT, () => {
     console.log(`Web server listening at http://localhost:${PORT}`);
     resolve();
   });
 });
 
 module.exports.onReady = donePromise.then.bind(donePromise);
+
+module.exports.close = () => {
+  donePromise.then(() => server.close());
+};

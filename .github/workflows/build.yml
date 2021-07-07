@@ -31,13 +31,30 @@ jobs:
       - name: Make the Electron app
         run: npm run make
 
-      - name: Prepare artifacts
-        run: |
-          npx mkdir artifact
-          npx mv out/make/*/*/*.exe out/make/*/*/*/*.zip out/make/*/*/*.rpm out/make/*/*/*.deb artifact/
-
-      - name: Upload artifacts
+      - if: matrix.os == 'windows-latest'
+        name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.os }}
-          path: artifact
+          name: windows
+          path: out/make/squirrel.windows/x64/web-voting-1.0.0 Setup.exe
+
+      - if: matrix.os == 'macos-latest'
+        name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos
+          path: out/make/zip/darwin/x64/web-voting-darwin-x64-1.0.0.zip
+
+      - if: matrix.os == 'ubuntu-latest'
+        name: Upload artifacts (rpm)
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-rpm
+          path: out/make/rpm/x64/web-voting-1.0.0-1.x86_64.rpm
+
+      - if: matrix.os == 'ubuntu-latest'
+        name: Upload artifacts (deb)
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-deb
+          path: out/make/deb/x64/web-voting_1.0.0_amd64.deb

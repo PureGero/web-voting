@@ -30,7 +30,7 @@ idattend.post('/connect', async (req, res) => {
   //   }
   // };
   await sql.connect(req.body);
-  const result = await sql.query(`select * from dbo.tblStudents where id = ${value}`);
+  const result = await sql.query(`select top 10 * from dbo.tblStudents`);
   console.dir(result);
   res.send(result);
 });

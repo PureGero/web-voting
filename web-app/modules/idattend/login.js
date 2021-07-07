@@ -41,7 +41,7 @@ const renderIDAttendLoginForm = () => {
   };
 
   inputIntegratedAuthentication.onchange = event => {
-    container.querySelector('#credentials').style.display = event.target.checked ? 'none' : '';
+    container.querySelector('#credentials').style.display = inputIntegratedAuthentication.checked ? 'none' : '';
   };
 
   formLogin.onsubmit = event => {
@@ -50,18 +50,24 @@ const renderIDAttendLoginForm = () => {
     localStorage.idattendDomain = inputDomain.value;
     localStorage.idattendUsername = inputUsername.value;
     localStorage.idattendIntegratedAuthentication = inputIntegratedAuthentication.checked;
-    ipcRenderer.invokeTask('perform-action', {
-      domain: inputDomain.value,
-      user: inputUsername.value,
-      password: inputPassword.value,
-      database: 'IDAttend2021',
-      server: inputServer.value,
-      options: {
-        encrypt: false, // for azure
-        trustServerCertificate: true,
-        trustedConnection: inputIntegratedAuthentication.checked
-      }
-    });
+    fetch('/idattend/connect', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        domain: inputDomain.value,
+        user: inputUsername.value,
+        password: inputPassword.value,
+        database: `IDAttend${new Date().getFullYear()}`,
+        server: inputServer.value,
+        options: {
+          encrypt: false, // for azure
+          trustServerCertificate: true,
+          trustedConnection: inputIntegratedAuthentication.checked
+        }
+      })
+    }).then(res => res.json()).then(console.log);
     event.preventDefault();
     return false;
   };
@@ -72,6 +78,25 @@ const renderIDAttendLoginForm = () => {
   if (localStorage.idattendPhotos) {
     inputPhotos.value = localStorage.idattendPhotos;
   }
+  if (localStorage.idattendDomain) {
+    inputDomain.value = localStorage.idattendDomain;
+  }
+  if (localStorage.idattendUsername) {
+    inputUsername.value = localStorage.idattendUsername;
+  }
+  if (localStorage.idattendIntegratedAuthentication) {
+    inputIntegratedAuthentication.checked = localStorage.idattendIntegratedAuthentication;
+    inputIntegratedAuthentication.onchange();
+  }
+
+  fetch('/idattend/isTrustedConnectionEnabled').then(res => res.json()).then(isTrustedConnectionEnabled => {
+    console.log(`isTrustedConnectionEnabled = ${isTrustedConnectionEnabled}`);
+    if (!isTrustedConnectionEnabled) {
+      inputIntegratedAuthentication.disabled = true;
+      inputIntegratedAuthentication.checked = false;
+      inputIntegratedAuthentication.onchange();
+    }
+  });
 }
 
 export default async (button, returnToHome, goToCandidateList) => {

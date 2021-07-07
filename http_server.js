@@ -5,6 +5,10 @@ const path = require('path');
 const app = express();
 const PORT = 8683;
 
+app.use(express.json());
+
+app.use('/idattend', require('./idattend'));
+
 module.exports.getLocalhostURL = () => {
   return `http://localhost:${PORT}/`;
 };

@@ -1,0 +1,106 @@
+body {
+  background-color: white;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  margin: auto;
+  width: fit-content;
+}
+
+h1 {
+  font-size: 48px;
+  text-align: center;
+}
+
+.login_button {
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 20px;
+  display: flex;
+  font-size: 24px;
+  margin-bottom: 15px;
+  opacity: 0.8;
+  padding: 15px;
+  position: relative;
+  width: 300px;
+
+  img {
+    height: 28px;
+    margin-right: 10px;
+  }
+}
+
+.login_button:hover {
+  background: #ccc;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.login_button::after {
+  content: '';
+  border-right: 3px solid black;
+  border-top: 3px solid black;
+  display: block;
+  height: 15px;
+  position: absolute;
+  right: 20px;
+  transform: rotate(45deg);
+  width: 15px;
+}
+
+label {
+  color: #444;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 20px auto 4px;
+  text-transform: uppercase;
+  width: 300px;
+}
+
+input {
+  background: #eee;
+  border: 1px solid #444;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: black;
+  display: block;
+  margin: 4px auto 20px;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  width: 300px;
+}
+
+input:focus {
+  background: #ccc;
+  border-color: black;
+}
+
+input[type=checkbox] {
+  display: inline;
+  margin-right: 4px;
+  width: auto;
+}
+
+input[type=checkbox]:focus {
+  outline: 2px white 5px;
+}
+
+input[type=submit]:hover {
+  background: #ccc;
+  border-color: black;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    filter: invert(100%);
+  }
+
+  .no_invert {
+    filter: invert(100%);
+  }
+}

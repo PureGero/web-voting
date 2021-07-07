@@ -34,7 +34,7 @@ jobs:
       - name: Prepare artifacts
         run: |
           npx mkdir artifact
-          npx mv out/make/**/*.exe out/make/**/*.zip out/make/**/*.rpm out/make/**/*.deb artifact/
+          npx mv out/make/*/*/*.exe out/make/*/*/*/*.zip out/make/*/*/*.rpm out/make/*/*/*.deb artifact/
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2

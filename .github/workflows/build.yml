@@ -35,4 +35,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.os }}
-          path: out/make/**/*.(exe|deb|rpm|zip)
+          path: |
+            out/make/**/*.exe
+            out/make/**/*.zip
+            out/make/**/*.rpm
+            out/make/**/*.deb

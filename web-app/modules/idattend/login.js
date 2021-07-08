@@ -56,14 +56,14 @@ const renderIDAttendLoginForm = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        domain: inputDomain.value ? inputDomain.value : undefined,
-        user: inputUsername.value,
-        password: inputPassword.value,
+        domain: !inputIntegratedAuthentication.checked && inputDomain.value ? inputDomain.value : undefined,
+        user: inputIntegratedAuthentication.checked ? undefined : inputUsername.value,
+        password: inputIntegratedAuthentication.checked ? undefined : inputPassword.value,
         database: `IDAttend${new Date().getFullYear()}`,
         server: inputServer.value,
         options: {
-          encrypt: false, // for azure
-          trustServerCertificate: true,
+          // encrypt: false, // for azure
+          // trustServerCertificate: true,
           trustedConnection: inputIntegratedAuthentication.checked
         }
       })

@@ -6,13 +6,13 @@ let sql = require('mssql');
 let driver;
 let trustedConnectionEnabled = false;
 
-// try {
-//   sql = require('mssql/msnodesqlv8');
-//   trustedConnectionEnabled = true;
-//   driver = 'msnodesqlv8';
-// } catch (error) {
-//   console.log(error);
-// }
+try {
+  sql = require('mssql/msnodesqlv8');
+  trustedConnectionEnabled = true;
+  driver = 'msnodesqlv8';
+} catch (error) {
+  console.log(error);
+}
 
 idattend.get('/isTrustedConnectionEnabled', (req, res) => {
   res.send(trustedConnectionEnabled);

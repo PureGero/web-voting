@@ -97,6 +97,10 @@ const renderIDAttendLoginForm = () => {
       inputIntegratedAuthentication.onchange();
     }
   });
+
+  fetch('/idattend/getDefaultDomain').then(res => res.text()).then(domain => {
+    inputDomain.value = domain;
+  });
 }
 
 export default async (button, returnToHome, goToCandidateList) => {

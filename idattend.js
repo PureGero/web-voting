@@ -18,6 +18,10 @@ idattend.get('/isTrustedConnectionEnabled', (req, res) => {
   res.send(trustedConnectionEnabled);
 });
 
+idattend.get('/getDefaultDomain', (req, res) => {
+  res.send(process.env.USERDOMAIN ? process.env.USERDOMAIN : '');
+});
+
 idattend.post('/connect', async (req, res) => {
   // const sqlConfig = {
   //   domain: '',

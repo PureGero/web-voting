@@ -56,7 +56,7 @@ const renderIDAttendLoginForm = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        domain: inputDomain.value,
+        domain: inputDomain.value ? inputDomain.value : undefined,
         user: inputUsername.value,
         password: inputPassword.value,
         database: `IDAttend${new Date().getFullYear()}`,

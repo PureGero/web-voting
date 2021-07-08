@@ -29,10 +29,14 @@ idattend.post('/connect', async (req, res) => {
   //     trustedConnection: false
   //   }
   // };
-  await sql.connect(req.body);
-  const result = await sql.query(`select top 10 * from dbo.tblStudents`);
-  console.dir(result);
-  res.send(result);
+  try {
+    await sql.connect(req.body);
+    const result = await sql.query(`select top 10 * from dbo.tblStudents`);
+    console.dir(result);
+    res.send(result);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 module.exports = idattend;

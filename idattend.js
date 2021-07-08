@@ -2,15 +2,17 @@ const express = require('express');
 
 const idattend = express.Router();
 
-let sql;
+let sql = require('mssql');
+let driver;
 let trustedConnectionEnabled = false;
 
-try {
-  sql = require('mssql/msnodesqlv8');
-  trustedConnectionEnabled = true;
-} catch (error) {
-  sql = require('mssql');
-}
+// try {
+//   sql = require('mssql/msnodesqlv8');
+//   trustedConnectionEnabled = true;
+//   driver = 'msnodesqlv8';
+// } catch (error) {
+//   console.log(error);
+// }
 
 idattend.get('/isTrustedConnectionEnabled', (req, res) => {
   res.send(trustedConnectionEnabled);
@@ -30,12 +32,15 @@ idattend.post('/connect', async (req, res) => {
   //   }
   // };
   try {
+    req.body.driver = driver;
+    console.log(req.body);
     await sql.connect(req.body);
     const result = await sql.query(`select top 10 * from dbo.tblStudents`);
     console.dir(result);
     res.send(result);
   } catch (e) {
     res.status(500).send(e);
+    throw e;
   }
 });
 
